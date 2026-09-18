@@ -1,9 +1,8 @@
-```markdown
-# 📋 TaskManager App
+# TaskManager App
 
 Application de gestion de tâches multi-services conteneurisée avec **Docker Compose**, comprenant un backend **Spring Boot**, une base de données **MySQL** et un frontend **React (Vite / Nginx)**.
 
-## 🚀 Architecture du Projet
+##  Architecture du Projet
 
 * **Backend :** Spring Boot (Port interne : `8091`) avec documentation Swagger UI.
 * **Frontend :** React avec Vite, servi via Nginx (Port hôte : `7080`).
@@ -22,8 +21,7 @@ Assurez-vous d'avoir installé les outils suivants sur votre machine :
 ##  Installation et Lancement Local
 
 1. **Cloner le dépôt :**
-```bash
-   
+```bash   
    git clone [https://github.com/thier32/taskmanager-deploy.git](https://github.com/thier32/taskmanager-deploy.git)
 
    cd taskmanager-deploy
