@@ -22,8 +22,10 @@ Assurez-vous d'avoir installé les outils suivants sur votre machine :
 
 1. **Cloner le dépôt :**
 ```bash   
-   git clone [https://github.com/thier32/taskmanager-deploy.git](https://github.com/thier32/taskmanager-deploy.git)
+   git clone https://github.com/thier32/taskmanager-deploy.git
+```
 
+```bash
    cd taskmanager-deploy
 ```
 
@@ -44,7 +46,7 @@ docker ps
 Une fois les conteneurs lancés, vous pouvez accéder aux différentes interfaces :
 
 * **Frontend (Application Web) :** [http://127.0.0.1:7080](http://localhost:7080)
-* **Backend API / Swagger UI :** [http://127.0.0.1:6001/swagger-ui.html](https://www.google.com/search?q=http://127.0.0.1:6001/swagger-ui.html&utm_source=gemini) *(utilisez `127.0.0.1` plutôt que `localhost` si vous rencontrez des problèmes de résolution IPv6)*
+* **Backend API / Swagger UI :** http://127.0.0.1:6001/swagger-ui.html  *(utilisez `127.0.0.1` plutôt que `localhost` si vous rencontrez des problèmes de résolution IPv6)*
 
 ---
 
