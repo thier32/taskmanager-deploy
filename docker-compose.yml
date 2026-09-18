@@ -1,0 +1,61 @@
+version: '3.8'
+
+services:
+  # -------------------------------------------------------------------------
+  # BASE DE DONNÉES MYSQL
+  # -------------------------------------------------------------------------
+  mysql:
+    image: mysql:8.0
+    container_name: taskmanager-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: taskmanager_bd
+      MYSQL_ROOT_PASSWORD: rootpassword123
+      MYSQL_USER: task_user
+      MYSQL_PASSWORD: task_password
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      
+  # -------------------------------------------------------------------------
+  # BACKEND SERVICE (Spring Boot / Java 21 / Gradle Multi-Module)
+  # -------------------------------------------------------------------------
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: taskmanager-api:1.0
+    container_name: taskmanager-backend-container
+    ports:
+      - "6001:8091"
+    environment:
+    # Variables d'environnement pour MySQL
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/taskmanager_bd?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+      - SPRING_DATASOURCE_USERNAME=task_user
+      - SPRING_DATASOURCE_PASSWORD=task_password
+      - SPRING_DATASOURCE_DRIVER_CLASS_NAME=com.mysql.cj.jdbc.Driver
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+    depends_on:
+      - mysql  
+    restart: unless-stopped
+   
+  # -------------------------------------------------------------------------
+  # FRONTEND SERVICE (React / Vite / Nginx)
+  # -------------------------------------------------------------------------
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+      args:
+        - VITE_API_BASE_URL=http://127.0.0.1:6001
+    image: taskmanager-web:1.0
+    container_name: taskmanager-frontend-container
+    ports:
+      - "7080:80"
+    depends_on:
+      - backend
+    restart: unless-stopped
+  
+volumes:
+  mysql_data:
